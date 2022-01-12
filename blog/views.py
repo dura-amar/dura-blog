@@ -8,24 +8,43 @@ from blog.models import BlogPost, Category
 # View all the blogs
 def view_allBlogs(request):
     blogs=BlogPost.objects.all()
-    context={'page_title':'All Blogs','blogs':blogs}
+    categoryList=Category.objects.all()
+    context={'page_title':'All Blogs','blogs':blogs,'categoryList':categoryList}
     return render(request,'blogs.html',context)
 
 # View a single blog by id
-def view_aBlog(request,bId):
-    blog=BlogPost.objects.get(id=bId)
-    context={'page_title':blog.title,'blog':blog}
+def view_aBlog(request,blog_id):
+    blog=BlogPost.objects.get(id=blog_id)
+    categoryList=Category.objects.all()
+    context={'page_title':blog.title,'blog':blog,'categoryList':categoryList}
     return render(request,'blog.html',context)
 
 # Create a new blog
 def view_add_aBlog(request):
     form=BlogPostForm()
-    if(request.method=='POST'):
-        form=BlogPostForm(request.POST)
+    if request.method=='POST':
+        form=BlogPostForm(request.POST,request.FILES)
         if(form.is_valid()):
             form.save()
             return redirect('view_allBlogs')
     return render(request,'add_blog.html',{'form':form})
+
+
+# update a new blog
+def view_update_blog(request,blog_id):
+    dest=BlogPost.objects.get(id=blog_id)
+    form=BlogPostForm(instance=dest)
+    if request.method=='POST':
+        form=BlogPostForm(request.POST, instance=dest)
+        if form.is_valid():
+            form.save()
+        return redirect('view_allBlogs')
+    return render(request,'update_blog.html',{'form':form}) 
+
+
+
+
+
 
 
 # View all the categories
@@ -38,7 +57,8 @@ def view_allCategory(request):
 def view_aCategory(request,cId):
     ctg=Category.objects.get(id=cId)
     blogs=BlogPost.objects.filter(category=ctg)
-    context={'page_title':ctg.name,'blogs':blogs}
+    categoryList=Category.objects.all()
+    context={'page_title':ctg.name,'blogs':blogs,'categoryList':categoryList}
     return render(request,'blogs.html',context)
 
 # Create a new blog

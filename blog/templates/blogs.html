@@ -1,13 +1,23 @@
 {% extends 'base.html' %}
 
-{% block blogs_content %}
+
+{% block all_blogs %}
 {% for b in blogs %}
-<hr>
-<a href="{% url 'view_aBlog' b.id %}">{{b.title}}</a><br/>
-{{b.author.username}}<br/>
-{{b.content}}<br/>
-{{b.category}}<br/>
-{{b.date_posted}}<br/>
-<hr>
+
+<div class="col-lg-8 tm-post-col">
+    <div class="tm-post-full">
+        <div class="mb-4">
+            <h2 class="pt-2 tm-color-primary tm-post-title"><a href="{% url 'view_aBlog' b.id %}">{{b.title}}</a>
+            </h2>
+            <p class="tm-mb-40">{{b.date_posted}} posted by {{b.author.username}}</p>
+            <p>
+                {{b.content}}
+            </p>
+            <span class="d-block text-right tm-color-primary">{{b.category}}</span>
+        </div>
+
+    </div>
+</div>
+
 {% endfor %}
-{% endblock blogs_content %}
+{% endblock all_blogs %}

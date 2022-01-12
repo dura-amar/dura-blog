@@ -18,7 +18,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from blog.views import view_aBlog, view_aCategory, view_add_aBlog, view_add_aCategory, view_allBlogs, view_allCategory
+from blog.views import view_aBlog, view_aCategory, view_add_aBlog, view_add_aCategory, view_allBlogs, view_allCategory, view_update_blog
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,8 +28,9 @@ urlpatterns = [
     path('category/add', view_add_aCategory, name='add_aCategory'),
 
     path('blogs/',view_allBlogs, name='view_allBlogs'),
-    path('blogs/<int:bId>',view_aBlog,name='view_aBlog'),
+    path('blogs/<int:blog_id>',view_aBlog,name='view_aBlog'),
     path('blogs/add',view_add_aBlog,name='add_aBlog'),
+    path('blogs/update/<int:blog_id>',view_update_blog,name='update_aBlog'),
 ]
 
 if settings.DEBUG:
