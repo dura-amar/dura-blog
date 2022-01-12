@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block blogs_content %}
+{% for b in blogs %}
+<hr>
+<a href="{% url 'view_aBlog' b.id %}">{{b.title}}</a><br/>
+{{b.author.username}}<br/>
+{{b.content}}<br/>
+{{b.category}}<br/>
+{{b.date_posted}}<br/>
+<hr>
+{% endfor %}
+{% endblock blogs_content %}
