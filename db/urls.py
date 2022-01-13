@@ -15,7 +15,25 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
+
+from blog.views import view_aBlog, view_aCategory, view_aCategory_byName, view_add_aBlog, view_add_aCategory, view_allBlogs, view_allCategory, view_update_blog
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path('blogs/category/', view_allCategory, name='view_allCategory'),
+    path('blogs/category/<int:cId>', view_aCategory, name='view_aCategory'),
+    path('blogs/category/<str:categoryName>', view_aCategory_byName, name='view_aCategory_byName'),
+    path('blogs/category/new/add', view_add_aCategory, name='add_aCategory'),
+    
+    path('blogs/', view_allBlogs, name='view_allBlogs'),
+    path('blogs/<int:blog_id>', view_aBlog, name='view_aBlog'),
+    path('blogs/add', view_add_aBlog, name='add_aBlog'),
+    path('blogs/update/<int:blog_id>', view_update_blog, name='update_aBlog'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
