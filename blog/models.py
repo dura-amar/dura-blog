@@ -16,7 +16,7 @@ class BlogPost(models.Model):
     date_posted=models.DateTimeField(auto_now_add=True)
     author=models.ForeignKey(User,on_delete=models.CASCADE)
     category=models.ForeignKey(Category,on_delete=models.CASCADE)
-    thumbnail=models.ImageField()
+    thumbnail=models.ImageField(upload_to='blog/',blank=True,null=True)
     slug_title=models.SlugField(null=False,blank=False,editable=False)
 
     def __str__(self):
