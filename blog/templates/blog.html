@@ -2,17 +2,29 @@
 
 {% block single_blog %}
 
+
+
+<div class="row tm-row">
+    <div class="col-12">
+        <hr class="tm-hr-primary tm-mb-55">
+        <!-- Video player 1422x800 -->
+        <div class="tm-post-link-inner">
+            <img src="{{blog.thumbnail}}" alt="Image" class="img-fluid">
+        </div>
+    </div>
+</div>
+<div class="row tm-row">
     <div class="col-lg-8 tm-post-col">
-        <div class="tm-post-full">                    
+        <div class="tm-post-full">
             <div class="mb-4">
                 <h2 class="pt-2 tm-color-primary tm-post-title">{{blog.title}}</h2>
                 <p class="tm-mb-40">{{blog.date_posted}} posted by {{blog.author.username}}</p>
                 <p>
-                   {{blog.content}}
+                    {{blog.content|safe}}
                 </p>
-                <span class="d-block text-right tm-color-primary">{{blog.category}}</span>
+                <span class="d-block text-right tm-color-primary" {{b.category}}</span>
             </div>
-            
+
             <!-- Comments -->
             <div>
                 <h2 class="tm-color-primary tm-post-title">Comments</h2>
@@ -26,28 +38,28 @@
                         <p>
                             Praesent aliquam ex vel lectus ornare tritique. Nunc et eros
                             quis enim feugiat tincidunt et vitae dui. Nullam consectetur
-                            justo ac ex laoreet rhoncus. Nunc id leo pretium, faucibus 
+                            justo ac ex laoreet rhoncus. Nunc id leo pretium, faucibus
                             sapien vel, euismod turpis.
                         </p>
                         <div class="d-flex justify-content-between">
                             <a href="#" class="tm-color-primary">REPLY</a>
                             <span class="tm-color-primary">June 14, 2020</span>
-                        </div>                                                 
-                    </div>                                
+                        </div>
+                    </div>
                 </div>
                 <div class="tm-comment-reply tm-mb-45">
                     <hr>
                     <div class="tm-comment">
                         <figure class="tm-comment-figure">
                             <img src="img/comment-2.jpg" alt="Image" class="mb-2 rounded-circle img-thumbnail">
-                            <figcaption class="tm-color-primary text-center">Jewel Soft</figcaption>    
+                            <figcaption class="tm-color-primary text-center">Jewel Soft</figcaption>
                         </figure>
                         <p>
                             Nunc et eros quis enim feugiat tincidunt et vitae dui.
                             Nullam consectetur justo ac ex laoreet rhoncus. Nunc
                             id leo pretium, faucibus sapien vel, euismod turpis.
                         </p>
-                    </div>                                
+                    </div>
                     <span class="d-block text-right tm-color-primary">June 21, 2020</span>
                 </div>
                 <form action="" class="mb-5 tm-comment-form">
@@ -62,13 +74,14 @@
                         <textarea class="form-control" name="message" rows="6"></textarea>
                     </div>
                     <div class="text-right">
-                        <button class="tm-btn tm-btn-primary tm-btn-small">Submit</button>                        
-                    </div>                                
-                </form>                          
+                        <button class="tm-btn tm-btn-primary tm-btn-small">Submit</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-   
 
-{% endblock single_blog %}
 
+
+
+    {% endblock single_blog %}

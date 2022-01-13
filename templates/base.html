@@ -32,7 +32,7 @@ https://templatemo.com/tm-553-xtra-blog
             </div>
             <nav class="tm-nav" id="tm-nav">
                 <ul>
-                    <li class="tm-nav-item active"><a href="#" class="tm-nav-link">
+                    <li class="tm-nav-item active"><a href="{% url 'view_allBlogs'%}" class="tm-nav-link">
                             <i class="fas fa-home"></i>
                             Blog Home
                         </a></li>
@@ -97,6 +97,8 @@ https://templatemo.com/tm-553-xtra-blog
             {% block single_blog %}{% endblock single_blog %}
 
             {% block all_blogs %}{% endblock all_blogs %}
+
+            {% block content_blog_update %}{% endblock content_blog_update %}
 
             <aside class="col-lg-4 tm-aside-col">
                 <div class="tm-post-sidebar">

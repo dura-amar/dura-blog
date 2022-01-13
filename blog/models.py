@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 
@@ -11,11 +12,11 @@ class Category(models.Model):
 
 class BlogPost(models.Model):
     title=models.CharField(max_length=50)
-    content=models.TextField()
+    content=RichTextField(blank=True, null=True)
     date_posted=models.DateTimeField(auto_now_add=True)
     author=models.ForeignKey(User,on_delete=models.CASCADE)
     category=models.ForeignKey(Category,on_delete=models.CASCADE)
-    thumbnail=models.ImageField(upload_to="images/")
+    thumbnail=models.ImageField()
     slug_title=models.SlugField(null=False,blank=False,editable=False)
 
     def __str__(self):

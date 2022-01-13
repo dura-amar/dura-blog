@@ -32,10 +32,10 @@ def view_add_aBlog(request):
 
 # update a new blog
 def view_update_blog(request,blog_id):
-    dest=BlogPost.objects.get(id=blog_id)
-    form=BlogPostForm(instance=dest)
+    blog=BlogPost.objects.get(id=blog_id)
+    form=BlogPostForm(instance=blog)
     if request.method=='POST':
-        form=BlogPostForm(request.POST, instance=dest)
+        form=BlogPostForm(request.POST, instance=blog)
         if form.is_valid():
             form.save()
         return redirect('view_allBlogs')
@@ -53,13 +53,18 @@ def view_allCategory(request):
     context={'page_title':'All Category','category':categories}
     return render(request,'categorys.html',context)
 
-# View a single blog by id
+# View a category blog by id
 def view_aCategory(request,cId):
     ctg=Category.objects.get(id=cId)
     blogs=BlogPost.objects.filter(category=ctg)
     categoryList=Category.objects.all()
     context={'page_title':ctg.name,'blogs':blogs,'categoryList':categoryList}
     return render(request,'blogs.html',context)
+
+# view a single category by category name
+def view_aCategory_byName(request,categoryName):
+    cId=Category.objects.get(name=categoryName).id
+    return redirect('view_aCategory',cId)
 
 # Create a new blog
 def view_add_aCategory(request):
