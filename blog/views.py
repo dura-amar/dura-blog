@@ -51,12 +51,6 @@ def view_update_blog(request,blog_id):
         return redirect('view_allBlogs')
     return render(request,'update_blog.html',{'form':form}) 
 
-
-
-
-
-
-
 # View all the categories
 def view_allCategory(request):
     categories=Category.objects.all()
