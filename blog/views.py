@@ -1,15 +1,25 @@
 from django.shortcuts import redirect, render
 from blog.forms import BlogPostForm, CategoryForm
-
 from blog.models import BlogPost, Category
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
+
 
 # Create your views here.
 
 # View all the blogs
 def view_allBlogs(request):
-    blogs=BlogPost.objects.all()
+    blogs=BlogPost.objects.all().order_by('-date_posted')
     categoryList=Category.objects.all()
-    context={'page_title':'All Blogs','blogs':blogs,'categoryList':categoryList}
+    paginator=Paginator(blogs,5)
+    page=request.GET.get('page')
+    try:
+        blogs=paginator.page(page)
+    except PageNotAnInteger:
+        blogs=paginator.page(1)
+    except EmptyPage:
+        blogs=paginator.page(paginator.num_pages)
+    context={'page_title':'All Blogs','blogs':blogs,'categoryList':categoryList,'page':page}
     return render(request,'blogs.html',context)
 
 # View a single blog by id
@@ -75,4 +85,3 @@ def view_add_aCategory(request):
             form.save()
             return redirect('view_allCategory')
     return render(request,'add_category.html',{'form':form})
-
