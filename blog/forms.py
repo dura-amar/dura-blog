@@ -1,5 +1,5 @@
 from django import forms
-from  blog.models import BlogPost,Category
+from  blog.models import BlogComment, BlogPost,Category
 from crispy_forms.helper import FormHelper
 
 class BlogPostForm(forms.ModelForm):
@@ -13,3 +13,9 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model=Category
         fields=['name']
+
+class BlogCommentForm(forms.ModelForm):
+    helper =FormHelper()
+    class Meta:
+        model=BlogComment
+        fields=['comment']
