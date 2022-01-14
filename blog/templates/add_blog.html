@@ -3,11 +3,11 @@
 {% crispy form form.helper %}
 
 {% block create_blog %}
-<form method='POST' enctype="multipart/form-data" class='uni_from'>
+<form method='POST' enctype="multipart/form-data" class="uniForm">
     {% csrf_token %}
     {{form.media}}
-    {% form|crispy %}
-    <button type='submit'>POST</button>
+    {{form|crispy}}
+    <button type='submit' class="btn btn-primary">POST</button>
 </form>
 {% endblock create_blog %}
 

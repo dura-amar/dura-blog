@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% crispy form form.helper %}
+{% block register_content %}
+<form method="POST" class="uniForm">
+    {% csrf_token %}
+    {{form|crispy}}
+    <button type="submit" class="btn btn-primary">REGISTER</button>
+</form>
+{% endblock register_content %}

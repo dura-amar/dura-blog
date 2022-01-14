@@ -4,7 +4,7 @@
 {% block all_blogs %}
 {% for b in blogs %}
 
-<div class="col-lg-8 tm-post-col">
+<div class="col col-lg-12 tm-post-col">
     <div class="tm-post-full">
         <a href="{% url 'view_aBlog' b.id %}" class="effect-lily tm-post-link tm-pt-60">
             <div class="tm-post-link-inner">
@@ -28,7 +28,6 @@
             <span>36 comments</span>
             <span>by {{b.author}}</span>
         </div>
-
     </div>
 </div>
 {% endfor %}

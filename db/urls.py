@@ -13,12 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from re import template
 from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views
+from authentication.views import view_user_register
 
-from blog.views import view_aBlog, view_aCategory, view_aCategory_byName, view_add_aBlog, view_add_aCategory, view_allBlogs, view_allCategory, view_update_blog
+from blog.views import view_aBlog, view_aCategory, view_aCategory_byName, view_add_aBlog, view_add_aCategory, view_allBlogs, view_allCategory, view_update_blog, view_search_blog_title
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,6 +35,14 @@ urlpatterns = [
     path('blogs/<int:blog_id>', view_aBlog, name='view_aBlog'),
     path('blogs/add', view_add_aBlog, name='add_aBlog'),
     path('blogs/update/<int:blog_id>', view_update_blog, name='update_aBlog'),
+
+    #for logout, login, register
+    path('logout/', views.LogoutView.as_view(), name='logout'),
+    path('login/', views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('register/', view_user_register, name='register'),
+
+
+    path('search-blog/', view_search_blog_title, name='search_blog_title'),
 ]
 
 if settings.DEBUG:
