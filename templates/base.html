@@ -75,14 +75,12 @@ https://templatemo.com/tm-553-xtra-blog
             <!-- Search form -->
             <div class="row tm-row">
                 <div class="col-12">
-                    <form method="POST" action="{% url 'search_blog_title' %}" class="form-inline tm-mb-80 tm-search-form">
+                    <form method="POST" action="{% url 'search_blog_title' %}"
+                        class="form-inline tm-mb-80 tm-search-form">
                         {% csrf_token %}
-                        <input class="form-control tm-search-input" 
-                        name="query" type="text" placeholder="Search blog title..."
-                            aria-label="Search">
-                        <button 
-                        class="tm-search-button" 
-                        type="submit">
+                        <input class="form-control tm-search-input" name="query" type="text"
+                            placeholder="Search blog title..." aria-label="Search">
+                        <button class="tm-search-button" type="submit">
                             <i class="fas fa-search tm-search-icon" aria-hidden="true"></i>
                         </button>
                     </form>
@@ -94,30 +92,38 @@ https://templatemo.com/tm-553-xtra-blog
 
                     {% block content %}{% endblock content %}
 
-                {% block blogs_content %}{% endblock blogs_content %}
+                    {% block blogs_content %}{% endblock blogs_content %}
 
-                {% block blog_content %}{% endblock blog_content %}
+                    {% block blog_content %}{% endblock blog_content %}
 
-                {% block create_blog %}{% endblock create_blog %}
+                    {% block create_blog %}{% endblock create_blog %}
 
-                {% block single_blog %}{% endblock single_blog %}
+                    {% block single_blog %}{% endblock single_blog %}
 
-                {% block all_blogs %}{% endblock all_blogs %}
+                    {% block all_blogs %}{% endblock all_blogs %}
 
-                {% block content_blog_update %}{% endblock content_blog_update %}
-                    </div>
+                    {% block content_blog_update %}{% endblock content_blog_update %}
 
-                <aside class="col-lg-4 tm-aside-col">
-                    <div class="tm-post-sidebar">
-                        <hr class="mb-3 tm-hr-primary">
-                        <h2 class="mb-4 tm-post-title tm-color-primary">Categories</h2>
-                        <ul class="tm-mb-75 pl-5 tm-category-list">
-                            {% for c in categoryList %}
-                            <li><a href="{% url 'view_aCategory' c.id %}" class="tm-color-primary">{{c.name}}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </aside>
+                    {% block login_content %}{% endblock login_content %}
+
+                    {% block register_content %}{% endblock register_content %}
+                </div>
+
+                <div class="col col-lg-4">
+                    <aside class="col-lg-12 tm-aside-col">
+                        <div class="tm-post-sidebar">
+                            <hr class="mb-3 tm-hr-primary">
+                            <h2 class="mb-4 tm-post-title tm-color-primary">Categories</h2>
+                            <ul class="tm-mb-75 pl-5 tm-category-list">
+                                {% for c in categoryList %}
+                                <li><a href="{% url 'view_aCategory' c.id %}" class="tm-color-primary">{{c.name}}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </aside>
+
+                </div>
             </div>
 
 

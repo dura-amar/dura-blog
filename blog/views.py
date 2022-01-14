@@ -127,11 +127,21 @@ def func_count_comments(blog_id):
     return func_get_all_comments(blog_id).count()
 
 
+# @login_required
+# def view_add_comment(request):
+#     comment = BlogCommentForm(BlogComment(comment=request.POST.get(
+#         'message'), author=request.user, blog=request.blog))
+#     comment.save()
+#     comments=BlogComment.objects.filter(blog=request.blog)
+#     print(comments)
+#     return render(request, 'blog_comments.html', {'comments': comments})
+
 @login_required
-def view_add_comment(request):
-    comment = BlogCommentForm(BlogComment(comment=request.POST.get(
-        'message'), author=request.user, blog=request.blog))
-    comment.save()
-    comments=BlogComment.objects.filter(blog=request.blog)
-    print(comments)
-    return render(request, 'blog_comments.html', {'comments': comments})
+def view_add_comment(request,blog_id):
+    c_message=request.POST.get('message')
+    c_author=request.user
+    c_blog=BlogPost.objects.get(id=blog_id)
+    commit=BlogComment.objects.create(comment=c_message,author=c_author,blog=c_blog)
+    commit.save()
+    return redirect('view_aBlog',blog_id)
+

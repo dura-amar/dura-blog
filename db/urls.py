@@ -50,7 +50,7 @@ urlpatterns = [
 
 htmx_urlpatterns = [
      # for comments
-    path('blogs/comment', view_add_comment, name='add_comment'),
+    path('blogs/comment/<int:blog_id>', view_add_comment, name='add_comment'),
 ]
 
 urlpatterns +=htmx_urlpatterns

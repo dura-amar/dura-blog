@@ -1,13 +1,13 @@
 
-<form class="mb-5 tm-comment-form">
+<form class="mb-5 tm-comment-form" method="post" action="{% url 'add_comment' blog.id %}">
+    {% csrf_token %}
     <h2 class="tm-color-primary tm-post-title mb-4">Your comment</h2>
     <div class="mb-4">
         <textarea class="form-control" name="message" placeholder="your comments here..." rows="6"></textarea>
     </div>
     <div class="text-right">
-        <button  
-        hx-post="{% url 'add_comment' %}" 
-        hx-target="#comments"
+        <button 
         class="tm-btn tm-btn-primary tm-btn-small" type='submit'>Comment</button>
     </div>
 </form>
+

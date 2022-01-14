@@ -6,7 +6,7 @@ class BlogPostForm(forms.ModelForm):
     helper =FormHelper()
     class Meta:
         model=BlogPost
-        fields=['title','content','category','thumbnail']
+        fields=['title','content','author','category','thumbnail']
 
 class CategoryForm(forms.ModelForm):
     helper =FormHelper()
