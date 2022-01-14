@@ -74,9 +74,11 @@ https://templatemo.com/tm-553-xtra-blog
         <main class="tm-main">
             <!-- Search form -->
             <div class="row tm-row">
+                
                 <div class="col-12">
-                    <form method="GET" class="form-inline tm-mb-80 tm-search-form">
-                        <input class="form-control tm-search-input" name="query" type="text" placeholder="Search..."
+                    <form method="GET" action="{% url 'search_blog_title' %}" class="form-inline tm-mb-80 tm-search-form">
+                        {% csrf_token %}
+                        <input class="form-control tm-search-input" name="query" type="text" placeholder="Search Blog title..."
                             aria-label="Search">
                         <button class="tm-search-button" type="submit">
                             <i class="fas fa-search tm-search-icon" aria-hidden="true"></i>
@@ -86,6 +88,8 @@ https://templatemo.com/tm-553-xtra-blog
             </div>
 
             <div class="row tm-row">
+                <div class="col col-lg-8 col-md-6">
+                    
             {% block content %}{% endblock content %}
 
             {% block blogs_content %}{% endblock blogs_content %}
@@ -104,7 +108,8 @@ https://templatemo.com/tm-553-xtra-blog
 
             {% block login_content %}{% endblock login_content %}
 
-            <aside class="col-lg-4 tm-aside-col">
+                </div>
+            <aside class="col-lg-4 col-md-3 tm-aside-col">
                 <div class="tm-post-sidebar">
                     <hr class="mb-3 tm-hr-primary">
                     <h2 class="mb-4 tm-post-title tm-color-primary">Categories</h2>

@@ -4,7 +4,7 @@ from authentication.forms import UserLoginForm, UserRegistrationForm
 from django.shortcuts import redirect
 from django.contrib.auth import logout,login, authenticate
 from django.http import HttpResponse
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def view_user_register(request):
     form=UserRegistrationForm()
@@ -30,6 +30,7 @@ def view_user_login(request):
                 return HttpResponse('this is wrong details')
     return render(request,'login.html',{'form':form})
 
+@login_required
 def view_user_logout(request):
     logout(request)
     return redirect('view_allBlogs')
