@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from django.contrib.auth import views
 from authentication.views import view_user_register
 
-from blog.views import view_aBlog, view_aCategory, view_aCategory_byName, view_add_aBlog, view_add_aCategory, view_allBlogs, view_allCategory, view_update_blog, view_search_blog_title
+from blog.views import view_aBlog, view_aCategory, view_aCategory_byName, view_add_aBlog, view_add_aCategory, view_add_comment, view_allBlogs, view_allCategory, view_update_blog, view_search_blog_title
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -42,8 +42,19 @@ urlpatterns = [
     path('register/', view_user_register, name='register'),
 
 
+    # for search functionality
     path('search-blog/', view_search_blog_title, name='search_blog_title'),
+
+   
 ]
+
+htmx_urlpatterns = [
+     # for comments
+    path('blogs/comment', view_add_comment, name='add_comment'),
+]
+
+urlpatterns +=htmx_urlpatterns
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
