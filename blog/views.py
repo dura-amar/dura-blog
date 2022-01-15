@@ -26,11 +26,21 @@ def view_allBlogs(request):
 
 # View a single blog by id
 
-
 def view_aBlog(request, blog_id):
     blog = BlogPost.objects.get(id=blog_id)
     categoryList = Category.objects.all()
     blog_comments = func_get_all_comments(blog_id)
+    context = {'page_title': blog.title,
+               'blog': blog, 'categoryList': categoryList, 'comments': blog_comments}
+    return render(request, 'blog.html', context)
+
+
+# View a single blog by slug
+
+def view_aBlog_bySlug(request, blog_slug):
+    blog = BlogPost.objects.get(slug_title=blog_slug)
+    categoryList = Category.objects.all()
+    blog_comments = func_get_all_comments(blog.id)
     context = {'page_title': blog.title,
                'blog': blog, 'categoryList': categoryList, 'comments': blog_comments}
     return render(request, 'blog.html', context)

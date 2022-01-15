@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
@@ -17,14 +18,15 @@ class BlogPost(models.Model):
     author=models.ForeignKey(User,on_delete=models.CASCADE)
     category=models.ForeignKey(Category,on_delete=models.CASCADE)
     thumbnail=models.ImageField(upload_to='blog/',blank=True,null=True)
-    slug_title=models.SlugField(null=False,blank=False,editable=False)
+    slug_title=models.SlugField(unique=True,null=False,blank=False,editable=False)
     count_comments=models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
     
     def save(self, *args, **kwargs):
-        self.slug_title = slugify(self.title)
+        slug_txt=str(datetime.now())+''+self.title
+        self.slug_title = slugify(slug_txt)
         super(BlogPost, self).save(*args, **kwargs)
 
 class BlogComment(models.Model):
