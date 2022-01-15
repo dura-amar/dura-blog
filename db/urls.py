@@ -22,6 +22,7 @@ from django.contrib.auth import views
 from authentication.views import view_user_register
 
 from blog.views import view_aBlog, view_aCategory, view_aCategory_byName, view_add_aBlog, view_add_aCategory, view_add_comment, view_allBlogs, view_allCategory, view_update_blog, view_search_blog_title
+from home.views import view_about_me, view_fb, view_gh, view_ig, view_ln, view_tw
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -48,12 +49,23 @@ urlpatterns = [
    
 ]
 
-htmx_urlpatterns = [
-     # for comments
+new_urlpatterns = [
+    # for comments
     path('blogs/comment/<int:blog_id>', view_add_comment, name='add_comment'),
+
+    #for about page
+    path('about/', view_about_me, name='about_me'),
+
+
+    # for social media links
+    path('fb/', view_fb, name='fb'),
+    path('ig/', view_ig, name='ig'),
+    path('ln/', view_ln, name='ln'),
+    path('tw/', view_tw, name='tw'),
+    path('gh/', view_gh, name='gh'),
 ]
 
-urlpatterns +=htmx_urlpatterns
+urlpatterns +=new_urlpatterns
 
 
 if settings.DEBUG:

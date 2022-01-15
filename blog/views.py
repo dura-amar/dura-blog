@@ -143,5 +143,8 @@ def view_add_comment(request,blog_id):
     c_blog=BlogPost.objects.get(id=blog_id)
     commit=BlogComment.objects.create(comment=c_message,author=c_author,blog=c_blog)
     commit.save()
+    # add the comment count to the blog
+    blog=BlogPost.objects.get(id=blog_id)
+    blog.count_comments=func_count_comments(blog_id)+1
     return redirect('view_aBlog',blog_id)
 
