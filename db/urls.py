@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from django.contrib.auth import views
 from authentication.views import view_user_register
 
-from blog.views import view_aBlog, view_aBlog_bySlug, view_aCategory, view_aCategory_byName, view_add_aBlog, view_add_aCategory, view_add_comment, view_allBlogs, view_allCategory, view_update_blog, view_search_blog_title
+from blog.views import view_aBlog, view_aBlog_bySlug, view_aCategory, view_aCategory_byName, view_add_aBlog, view_add_aCategory, view_add_comment, view_allBlogs, view_allCategory, view_delete_blog, view_update_blog, view_search_blog_title,view_my_blogs
 from home.views import view_about_me, view_fb, view_gh, view_ig, view_ln, view_tw
 
 urlpatterns = [
@@ -36,7 +36,11 @@ urlpatterns = [
     path('blogs/i/<int:blog_id>', view_aBlog, name='view_aBlog'),
     path('blogs/s/<slug:blog_slug>', view_aBlog_bySlug, name='view_aBlog_bySlug'),
     path('blogs/add', view_add_aBlog, name='add_aBlog'),
-    path('blogs/update/<int:blog_id>', view_update_blog, name='update_aBlog'),
+
+    # update a blog
+    path('blogs/update/<slug:blog_slug>', view_update_blog, name='update_aBlog'),
+    # delete a blog
+    path('blogs/delete/<int:blog_id>', view_delete_blog, name='delete_aBlog'),
 
     #for logout, login, register
     path('logout/', views.LogoutView.as_view(), name='logout'),
@@ -47,6 +51,8 @@ urlpatterns = [
     # for search functionality
     path('search-blog/', view_search_blog_title, name='search_blog_title'),
 
+    # for blogs published by me
+    path('my-blogs/', view_my_blogs, name='my_blogs'),
    
 ]
 

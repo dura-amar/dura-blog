@@ -4,7 +4,7 @@ from blog.forms import BlogCommentForm, BlogPostForm, CategoryForm
 from blog.models import BlogComment, BlogPost, Category
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -62,10 +62,10 @@ def view_add_aBlog(request):
 
 # update a new blog
 @login_required
-def view_update_blog(request, blog_id):
-    if request.user!=BlogPost.objects.get(id=blog_id).author:
+def view_update_blog(request, blog_slug):
+    blog=BlogPost.objects.get(slug_title=blog_slug)
+    if request.user!=blog.author:
         return redirect('view_allBlogs')
-    blog = BlogPost.objects.get(id=blog_id)
     form = BlogPostForm(instance=blog)
     if request.method == 'POST':
         form = BlogPostForm(request.POST, instance=blog)
@@ -74,9 +74,15 @@ def view_update_blog(request, blog_id):
         return redirect('view_allBlogs')
     return render(request, 'update_blog.html', {'form': form})
 
+def view_delete_blog(request, blog_id):
+    blog=BlogPost.objects.get(id=blog_id)
+    author_id=User.objects.get(username=blog.author).id
+    blog.delete()
+    return redirect('my_blogs')
+
+
+############################################################################################
 # View all the categories
-
-
 def view_allCategory(request):
     categories = Category.objects.all()
     context = {'page_title': 'All Category', 'category': categories}
@@ -140,24 +146,24 @@ def func_count_comments(blog_id):
     return func_get_all_comments(blog_id).count()
 
 
-# @login_required
-# def view_add_comment(request):
-#     comment = BlogCommentForm(BlogComment(comment=request.POST.get(
-#         'message'), author=request.user, blog=request.blog))
-#     comment.save()
-#     comments=BlogComment.objects.filter(blog=request.blog)
-#     print(comments)
-#     return render(request, 'blog_comments.html', {'comments': comments})
-
 @login_required
 def view_add_comment(request,blog_id):
     c_message=request.POST.get('message')
     c_author=request.user
     c_blog=BlogPost.objects.get(id=blog_id)
-    commit=BlogComment.objects.create(comment=c_message,author=c_author,blog=c_blog)
-    commit.save()
+    comment=BlogComment.objects.create(comment=c_message,author=c_author,blog=c_blog)
+    comment.save()
     # add the comment count to the blog
     blog=BlogPost.objects.get(id=blog_id)
     blog.count_comments=func_count_comments(blog_id)+1
+    blog.save()
     return redirect('view_aBlog',blog_id)
 
+# for viewing my own blogs
+@login_required
+def view_my_blogs(request):
+    blogs = BlogPost.objects.filter(author=request.user)
+    categoryList = Category.objects.all()
+    context = {'page_title': 'My Blogs',
+               'blogs': blogs, 'categoryList': categoryList}
+    return render(request, 'blogs.html', context)

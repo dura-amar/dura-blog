@@ -6,7 +6,11 @@ from django.contrib.auth import logout,login, authenticate
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 # Create your views here.
+
+
 def view_user_register(request):
+    if request.user.is_authenticated:
+        redirect("view_allBlogs")
     form=UserRegistrationForm()
     if request.method=="POST":
         form=UserRegistrationForm(request.POST)
@@ -16,6 +20,8 @@ def view_user_register(request):
     return render(request,'register.html',{'form':form})
 
 def view_user_login(request):
+    if request.user.is_authenticated:
+        redirect("view_allBlogs")
     form=UserLoginForm()
     if request.method=="POST":
         form=UserLoginForm(request.POST)
@@ -32,6 +38,8 @@ def view_user_login(request):
 
 @login_required
 def view_user_logout(request):
+    if not request.user.is_authenticated:
+        redirect("view_allBlogs")
     logout(request)
     return redirect('view_allBlogs')
 
