@@ -6,11 +6,13 @@
 
 <div class="col col-lg-12 tm-post-col">
     <div class="tm-post-full">
-        <a href="{% url 'view_aBlog' b.id %}" class="effect-lily tm-post-link tm-pt-60">
+        <a href="{% url 'view_aBlog_bySlug' b.slug_title %}" class="effect-lily tm-post-link tm-pt-60">
+            {% if b.thumbnail.url is not null %}
             <div class="tm-post-link-inner">
                 {% load static %}
                 <img src="{{ b.thumbnail.url }}" alt="thumbnail" class="img-fluid">
             </div>
+            {% endif %}
             <span class="position-absolute tm-new-badge">New</span>
             <h2 class="tm-pt-30 tm-color-primary tm-post-title">{{b.title}}</h2>
         </a>

@@ -12,7 +12,7 @@ def view_user_register(request):
         form=UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('view_allBlogs')
+            return redirect('login')
     return render(request,'register.html',{'form':form})
 
 def view_user_login(request):

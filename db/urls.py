@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from django.contrib.auth import views
 from authentication.views import view_user_register
 
-from blog.views import view_aBlog, view_aCategory, view_aCategory_byName, view_add_aBlog, view_add_aCategory, view_add_comment, view_allBlogs, view_allCategory, view_update_blog, view_search_blog_title
+from blog.views import view_aBlog, view_aBlog_bySlug, view_aCategory, view_aCategory_byName, view_add_aBlog, view_add_aCategory, view_add_comment, view_allBlogs, view_allCategory, view_update_blog, view_search_blog_title
 from home.views import view_about_me, view_fb, view_gh, view_ig, view_ln, view_tw
 
 urlpatterns = [
@@ -33,7 +33,8 @@ urlpatterns = [
     path('blogs/category/new/add', view_add_aCategory, name='add_aCategory'),
     
     path('blogs/', view_allBlogs, name='view_allBlogs'),
-    path('blogs/<int:blog_id>', view_aBlog, name='view_aBlog'),
+    path('blogs/i/<int:blog_id>', view_aBlog, name='view_aBlog'),
+    path('blogs/s/<slug:blog_slug>', view_aBlog_bySlug, name='view_aBlog_bySlug'),
     path('blogs/add', view_add_aBlog, name='add_aBlog'),
     path('blogs/update/<int:blog_id>', view_update_blog, name='update_aBlog'),
 

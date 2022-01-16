@@ -26,11 +26,21 @@ def view_allBlogs(request):
 
 # View a single blog by id
 
-
 def view_aBlog(request, blog_id):
     blog = BlogPost.objects.get(id=blog_id)
     categoryList = Category.objects.all()
     blog_comments = func_get_all_comments(blog_id)
+    context = {'page_title': blog.title,
+               'blog': blog, 'categoryList': categoryList, 'comments': blog_comments}
+    return render(request, 'blog.html', context)
+
+
+# View a single blog by slug
+
+def view_aBlog_bySlug(request, blog_slug):
+    blog = BlogPost.objects.get(slug_title=blog_slug)
+    categoryList = Category.objects.all()
+    blog_comments = func_get_all_comments(blog.id)
     context = {'page_title': blog.title,
                'blog': blog, 'categoryList': categoryList, 'comments': blog_comments}
     return render(request, 'blog.html', context)
@@ -43,6 +53,7 @@ def view_add_aBlog(request):
     form = BlogPostForm()
     if request.method == 'POST':
         form = BlogPostForm(request.POST, request.FILES)
+        form.instance.author=request.user
         if(form.is_valid()):
             form.save()
             return redirect('view_allBlogs')
@@ -52,6 +63,8 @@ def view_add_aBlog(request):
 # update a new blog
 @login_required
 def view_update_blog(request, blog_id):
+    if request.user!=BlogPost.objects.get(id=blog_id).author:
+        return redirect('view_allBlogs')
     blog = BlogPost.objects.get(id=blog_id)
     form = BlogPostForm(instance=blog)
     if request.method == 'POST':
