@@ -53,8 +53,7 @@ def view_add_aBlog(request):
     form = BlogPostForm()
     if request.method == 'POST':
         form = BlogPostForm(request.POST, request.FILES)
-        blog=form.instance
-        blog.author=request.user
+        form.instance.author=request.user
         if(form.is_valid()):
             form.save()
             return redirect('view_allBlogs')
