@@ -5,12 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{context_title}}</title>
-    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
-    <!-- https://fontawesome.com/ -->
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <title>{{page_title}}</title>
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css">
+    <link rel="stylesheet" href="{% static '/fontawesome/css/all.min.css' %}">
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    
 
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <!-- https://fonts.google.com/ -->
@@ -46,6 +47,11 @@ https://templatemo.com/tm-553-xtra-blog
                             <i class="fas fa-pen"></i>
                             Write Post
                         </a></li>
+                    <li class="tm-nav-item"><a href="{% url 'my_blogs' %}" class="tm-nav-link">
+                        <i class="fas fa-blog"></i>
+                            My Blogs
+                        </a></li>
+                    
                     {% endif %}
                     <li class="tm-nav-item"><a href="{% url 'about_me' %}" class="tm-nav-link">
                             <i class="fas fa-users"></i>
@@ -73,6 +79,9 @@ https://templatemo.com/tm-553-xtra-blog
                 </ul>
             </nav>
             <div class="tm-mb-65">
+                <li class="tm-nav-item">
+                    Connect to developer
+                </a></li>
                 <a rel="nofollow" href="{% url 'fb' %}" class="tm-social-link">
                     <i class="fab fa-facebook tm-social-icon"></i>
                 </a>
@@ -132,6 +141,7 @@ https://templatemo.com/tm-553-xtra-blog
                     {% block login_content %}{% endblock login_content %}
 
                     {% block register_content %}{% endblock register_content %}
+                    {% block about %}{% endblock about %}
                 </div>
 
                 <div class="col col-lg-4">

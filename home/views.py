@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 
 # Create your views here.
 def view_about_me(request):
+    context={"page_title":"About Developer"}
     return render(request, 'about.html')
 
 def view_fb(request):

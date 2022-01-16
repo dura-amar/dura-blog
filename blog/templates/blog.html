@@ -7,6 +7,34 @@
 
 <div class="col col-lg-12">
 
+    {% if request.user.is_authenticated %}
+
+    {% if request.user.username == blog.author.username  %}
+    <div class="row tm-row">
+        <div class="col-12">
+                <div class="text-right">
+                    <a href="{% url 'update_aBlog' blog.slug_title %}">
+                        <button 
+                        class="tm-btn btn-secondary tm-btn-small">
+                        {% csrf_token %}
+                        <i class="fa fa-trash" aria-hidden="True"></i>
+                        Edit
+                    </button>
+                    </a>
+                    <a href="{% url 'delete_aBlog' blog.id %}">
+                    <button 
+                    class="tm-btn btn-danger tm-btn-small" type='submit'>
+                    {% csrf_token %}
+                    <i class="fa fa-trash" aria-hidden="True"></i>
+                    Delete 
+                </button>
+                    </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endif %}
+
     <div class="row tm-row">
         <div class="col-12">
             <hr class="tm-hr-primary tm-mb-55">
@@ -31,6 +59,7 @@
                 </div>
 
                 <!-- Comments -->
+                {% if request.user.is_authenticated %}
                 <div>
                     <h2 class="tm-color-primary tm-post-title">Comments</h2>
                     <hr class="tm-hr-primary tm-mb-45">
@@ -43,6 +72,7 @@
                     {% include 'add_comment.html' %}
 
                 </div>
+                {% endif %}
 
             </div>
         </div>
