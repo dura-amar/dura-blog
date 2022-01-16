@@ -28,8 +28,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('blogs/category/', view_allCategory, name='view_allCategory'),
-    path('blogs/category/<int:cId>', view_aCategory, name='view_aCategory'),
-    path('blogs/category/<str:categoryName>', view_aCategory_byName, name='view_aCategory_byName'),
+    path('blogs/category/i/<int:cId>', view_aCategory, name='view_aCategory'),
+    path('blogs/category/s/<str:categoryName>', view_aCategory_byName, name='view_aCategory_byName'),
     path('blogs/category/new/add', view_add_aCategory, name='add_aCategory'),
     
     path('blogs/', view_allBlogs, name='view_allBlogs'),
