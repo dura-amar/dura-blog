@@ -1,5 +1,5 @@
 
-<form class="mb-5 tm-comment-form" method="post" action="{% url 'add_comment' blog.id %}">
+<form class="mb-5 tm-comment-form" method="post" action="{% url 'add_comment' blog.slug_title %}">
     {% csrf_token %}
     <h2 class="tm-color-primary tm-post-title mb-4">Your comment</h2>
     <div class="mb-4">
@@ -10,4 +10,18 @@
         class="tm-btn tm-btn-primary tm-btn-small" type='submit'>Comment</button>
     </div>
 </form>
+
+<!--  
+{% load crispy_forms_tags %}
+
+<form method="POST">
+    {% csrf_token %}
+    <h2 class="tm-color-primary tm-post-title mb-4">Your comment</h2>
+    {{ form.as_p}}
+    <br/>
+    <div class="text-right">
+        <button 
+        class="tm-btn tm-btn-primary tm-btn-small" type='submit'>Comment</button>
+    </div>
+</form> -->
 

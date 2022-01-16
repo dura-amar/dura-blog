@@ -26,13 +26,14 @@ def view_allBlogs(request):
 
 # View a single blog by id
 
-def view_aBlog(request, blog_id):
-    blog = BlogPost.objects.get(id=blog_id)
-    categoryList = Category.objects.all()
-    blog_comments = func_get_all_comments(blog_id)
-    context = {'page_title': blog.title,
-               'blog': blog, 'categoryList': categoryList, 'comments': blog_comments}
-    return render(request, 'blog.html', context)
+# def view_aBlog(request, blog_id):
+#     blog = BlogPost.objects.get(id=blog_id)
+#     categoryList = Category.objects.all()
+#     blog_comments = func_get_all_comments(blog_id)
+#     form=BlogCommentForm()
+#     context = {'page_title': blog.title,
+#                'blog': blog, 'categoryList': categoryList, 'comments': blog_comments, 'form': form}
+#     return render(request, 'blog.html', context)
 
 
 # View a single blog by slug
@@ -68,7 +69,7 @@ def view_update_blog(request, blog_slug):
         return redirect('view_allBlogs')
     form = BlogPostForm(instance=blog)
     if request.method == 'POST':
-        form = BlogPostForm(request.POST, instance=blog)
+        form = BlogPostForm(request.POST,request.FILES, instance=blog)
         if form.is_valid():
             form.save()
         return redirect('view_allBlogs')
@@ -148,17 +149,29 @@ def func_count_comments(blog_id):
 
 
 @login_required
-def view_add_comment(request,blog_id):
+def view_add_comment(request,blog_slug):
     c_message=request.POST.get('message')
     c_author=request.user
-    c_blog=BlogPost.objects.get(id=blog_id)
+    c_blog=BlogPost.objects.get(slug_title=blog_slug)
     comment=BlogComment.objects.create(comment=c_message,author=c_author,blog=c_blog)
     comment.save()
     # add the comment count to the blog
-    blog=BlogPost.objects.get(id=blog_id)
-    blog.count_comments=func_count_comments(blog_id)+1
-    blog.save()
-    return redirect('view_aBlog',blog_id)
+    c_blog.count_comments=func_count_comments(c_blog.id)+1
+    c_blog.save()
+    return redirect('view_aBlog_bySlug',c_blog.slug_title)
+# @login_required
+# def view_add_comment(request,blog_id):
+#     c_form=BlogCommentForm()
+#     if request.method=='POST':
+#         c_form=BlogCommentForm(request.POST)
+#         c_form.instance.author=request.user
+#         blog=BlogPost.objects.get(id=blog_id)
+#         c_form.instance.blog=blog
+#         if c_form.is_valid():
+#             c_form.save()
+#             blog.count_comments=func_count_comments(blog_id)+1
+#             blog.save()
+#     return redirect('view_aBlog',blog_id)
 
 # for viewing my own blogs
 @login_required

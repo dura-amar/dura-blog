@@ -2,10 +2,10 @@
 {% load crispy_forms_tags%}
 {% crispy from form.helper %}
 {% block content_blog_update %}
-<form method='POST' enctype='multipart/form-data'>
+<form method='POST' enctype='multipart/form-data' class="uniForm">
     {% csrf_token %}
     {{form.media}}
-    {% crispy form %}
-    <button type='submit'>Update</button>
+    {{ form|crispy }}
+    <button type='submit' class="btn btn-primary">Update</button>
 </form>
 {% endblock content_blog_update %}

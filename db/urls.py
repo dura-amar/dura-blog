@@ -21,19 +21,19 @@ from django.conf.urls.static import static
 from django.contrib.auth import views
 from authentication.views import view_user_register
 
-from blog.views import view_aBlog, view_aBlog_bySlug, view_aCategory, view_aCategory_byName, view_add_aBlog, view_add_aCategory, view_add_comment, view_allBlogs, view_allCategory, view_delete_blog, view_update_blog, view_search_blog_title,view_my_blogs
+from blog.views import view_aBlog_bySlug, view_aCategory, view_aCategory_byName, view_add_aBlog, view_add_aCategory, view_add_comment, view_allBlogs, view_allCategory, view_delete_blog, view_update_blog, view_search_blog_title,view_my_blogs
 from home.views import view_about_me, view_fb, view_gh, view_ig, view_ln, view_tw
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('blogs/category/', view_allCategory, name='view_allCategory'),
-    path('blogs/category/<int:cId>', view_aCategory, name='view_aCategory'),
-    path('blogs/category/<str:categoryName>', view_aCategory_byName, name='view_aCategory_byName'),
+    path('blogs/category/i/<int:cId>', view_aCategory, name='view_aCategory'),
+    path('blogs/category/s/<str:categoryName>', view_aCategory_byName, name='view_aCategory_byName'),
     path('blogs/category/new/add', view_add_aCategory, name='add_aCategory'),
     
     path('blogs/', view_allBlogs, name='view_allBlogs'),
-    path('blogs/i/<int:blog_id>', view_aBlog, name='view_aBlog'),
+    # path('blogs/i/<int:blog_id>', view_aBlog, name='view_aBlog'),
     path('blogs/s/<slug:blog_slug>', view_aBlog_bySlug, name='view_aBlog_bySlug'),
     path('blogs/add', view_add_aBlog, name='add_aBlog'),
 
@@ -58,7 +58,7 @@ urlpatterns = [
 
 new_urlpatterns = [
     # for comments
-    path('blogs/comment/<int:blog_id>', view_add_comment, name='add_comment'),
+    path('blogs/comment/<slug:blog_slug>', view_add_comment, name='add_comment'),
 
     #for about page
     path('about/', view_about_me, name='about_me'),
