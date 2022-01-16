@@ -117,7 +117,8 @@ def view_add_aCategory(request):
         if form.is_valid():
             form.save()
             return redirect('view_allCategory')
-    return render(request, 'add_category.html', {'form': form})
+    context={'page_title':'Add Category','form':form}
+    return render(request, 'add_category.html',context)
 
 
 # For search functionality
