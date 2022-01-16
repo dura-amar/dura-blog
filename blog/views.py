@@ -53,6 +53,8 @@ def view_add_aBlog(request):
     form = BlogPostForm()
     if request.method == 'POST':
         form = BlogPostForm(request.POST, request.FILES)
+        blog=form.instance
+        blog.author=request.user
         if(form.is_valid()):
             form.save()
             return redirect('view_allBlogs')
@@ -62,6 +64,8 @@ def view_add_aBlog(request):
 # update a new blog
 @login_required
 def view_update_blog(request, blog_id):
+    if request.user!=BlogPost.objects.get(id=blog_id).author:
+        return redirect('view_allBlogs')
     blog = BlogPost.objects.get(id=blog_id)
     form = BlogPostForm(instance=blog)
     if request.method == 'POST':
