@@ -23,7 +23,7 @@ from authentication.views import view_user_register
 
 from blog.views import view_aBlog_bySlug, view_aCategory, view_aCategory_byName, view_add_aBlog, view_add_aCategory, view_add_comment, view_allBlogs, view_allCategory, view_delete_blog, view_update_blog, view_search_blog_title,view_my_blogs
 from home.views import view_about_me, view_fb, view_gh, view_ig, view_ln, view_tw
-
+A
 urlpatterns = [
     path('admin/', admin.site.urls),
 
