@@ -19,14 +19,14 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views
-from authentication.views import view_user_register
+from authentication.views import view_user_register, password_reset_request
 
 from blog.views import view_aBlog_bySlug, view_aCategory, view_aCategory_byName, view_add_aBlog, view_add_aCategory, view_add_comment, view_allBlogs, view_allCategory, view_delete_blog, view_update_blog, view_search_blog_title,view_my_blogs
 from home.views import view_about_me, view_fb, view_gh, view_ig, view_ln, view_tw
-A
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-
+    path('', view_allBlogs, name='home'),
     path('blogs/category/', view_allCategory, name='view_allCategory'),
     path('blogs/category/i/<int:cId>', view_aCategory, name='view_aCategory'),
     path('blogs/category/s/<str:categoryName>', view_aCategory_byName, name='view_aCategory_byName'),
@@ -47,10 +47,13 @@ urlpatterns = [
     path('login/', views.LoginView.as_view(template_name='login.html'), name='login'),
     path('register/', view_user_register, name='register'),
 
-
+    # Password reset
+    path("password_reset", password_reset_request, name="password_reset"),
+    path('password_reset/done/', views.PasswordResetDoneView.as_view(template_name='password_reset_done.html'), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', views.PasswordResetConfirmView.as_view(template_name="password_reset_confirm.html"), name='password_reset_confirm'),
+    path('reset/done/', views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'), name='password_reset_complete'),      
     # for search functionality
     path('search-blog/', view_search_blog_title, name='search_blog_title'),
-
     # for blogs published by me
     path('my-blogs/', view_my_blogs, name='my_blogs'),
    
@@ -59,11 +62,8 @@ urlpatterns = [
 new_urlpatterns = [
     # for comments
     path('blogs/comment/<slug:blog_slug>', view_add_comment, name='add_comment'),
-
     #for about page
     path('about/', view_about_me, name='about_me'),
-
-
     # for social media links
     path('fb/', view_fb, name='fb'),
     path('ig/', view_ig, name='ig'),

@@ -151,3 +151,6 @@ LOGIN_REDIRECT_URL='/blogs/'
 
 # URL to redirect after logout
 LOGOUT_REDIRECT_URL='/blogs/'
+
+# For password reset
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
